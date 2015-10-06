@@ -3,7 +3,7 @@ package com.gft.repositoriesImpl;
 import com.gft.entities.Address;
 import com.gft.entities.PhoneNumber;
 import com.gft.entities.Record;
-import com.gft.repositories.phoneBookRepository;
+import com.gft.repositories.PhoneBookRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by ddph on 06/10/2015.
  */
-public class phoneBookRepositoryImpl implements phoneBookRepository {
+public class PhoneBookRepositoryImpl implements PhoneBookRepository {
     public List<Record> getRecordByFullName(String fullName) {
         Record record = new Record();
         record.setFirstName(fullName);

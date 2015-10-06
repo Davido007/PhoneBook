@@ -4,24 +4,19 @@ package com.gft.controllers;
  * Created by ddph on 06/10/2015.
  */
 
-import com.gft.entities.Record;
 import com.gft.services.PhoneBookService;
-import com.gft.servicesImpl.phoneBookServiceImp;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.gft.servicesImpl.PhoneBookServiceImp;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Path("/phoneBookService")
 public class PhoneBookController {
 
-    PhoneBookService phoneBookService = new phoneBookServiceImp();
+    PhoneBookService phoneBookService = new PhoneBookServiceImp();
 
     @GET
     @Path("/json/allRecords/")

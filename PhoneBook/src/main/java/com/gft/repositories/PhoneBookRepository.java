@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by ddph on 06/10/2015.
  */
-public interface phoneBookRepository {
+public interface PhoneBookRepository {
 
     public List<Record> getRecordByFullName(String fullName);
     public List<Record> getRecordByPrefix(String prefix);
