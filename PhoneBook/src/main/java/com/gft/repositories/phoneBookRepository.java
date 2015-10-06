@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface phoneBookRepository {
 
-    public List<Record> getRecordByFullName();
-    public List<Record> getRecordByPrefix();
+    public List<Record> getRecordByFullName(String fullName);
+    public List<Record> getRecordByPrefix(String prefix);
     public List<Record> getAllRecords();
 }
