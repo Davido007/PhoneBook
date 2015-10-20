@@ -4,6 +4,7 @@ import com.gft.entities.Address;
 import com.gft.entities.PhoneNumber;
 import com.gft.entities.Record;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public interface PhoneBookRepository {
 
-    public List<Record> getRecordByFullName(String fullName);
-    public List<Record> getRecordByPrefix(String prefix);
-    public List<Record> getAllRecords();
+    public List<Record> getRecordByFullName(String fullName) throws SQLException;
+    public List<Record> getRecordByPrefix(String prefix) throws SQLException;
+    public List<Record> getAllRecords() throws SQLException;
 }

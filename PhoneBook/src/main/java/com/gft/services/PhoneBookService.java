@@ -2,6 +2,7 @@ package com.gft.services;
 
 import com.gft.entities.Record;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -9,9 +10,11 @@ import java.util.List;
  */
 public interface PhoneBookService {
 
-    public String getRecordByFullName(String fullName);
+    public String getRecordByFullName(String fullName) throws SQLException;
 
-    public String getRecordByPrefix(String prefix);
+    public String getRecordByPrefix(String prefix) throws SQLException;
 
-    public String getAllRecords();
+    public String getAllRecords() throws SQLException;
+
+
 }

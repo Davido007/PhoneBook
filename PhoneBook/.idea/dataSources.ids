@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - phonebook_database@localhost" uuid="5b1097ef-865e-486b-8297-9946f7e62c9b">
+    <database-info product="MySQL" version="5.6.27-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="phonebook_database"/>
+    <table name="address" schema="" catalog="phonebook_database" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="city" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="street" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="houseNumber" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_person_address1" table="person" schema="" catalog="phonebook_database" columns="address_id_address"/>
+    </table>
+    <table name="number" schema="" catalog="phonebook_database" type="TABLE">
+      <column name="id_phoneNumber" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="prefix" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="number" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id_phoneNumber"/>
+      <exported-key name="fk_person_number" table="person" schema="" catalog="phonebook_database" columns="number_id_phoneNumber"/>
+    </table>
+    <table name="person" schema="" catalog="phonebook_database" type="TABLE">
+      <column name="id_person" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="firstname" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="surname" sqlType="VARCHAR" precision="45" scale="0" nullable="true" jdbcType="12"/>
+      <column name="number_id_phoneNumber" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="address_id_address" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id_person,number_id_phoneNumber,address_id_address"/>
+      <foreign-key name="fk_person_address1" columns="address_id_address" ref-table="address" ref-schema="" ref-catalog="phonebook_database" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_person_number" columns="number_id_phoneNumber" ref-table="number" ref-schema="" ref-catalog="phonebook_database" ref-columns="id_phoneNumber" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="fk_person_address1_idx" unique="false" columns="address_id_address"/>
+      <index name="fk_person_number_idx" unique="false" columns="number_id_phoneNumber"/>
+    </table>
+  </data-source>
+</component>

@@ -1,13 +1,29 @@
 package com.gft.entities;
 
+import javax.persistence.*;
+
+
 /**
  * Created by ddph on 06/10/2015.
  */
+@Entity
+@Table(name = "address")
 public class Address {
 
-    String city;
-    String street;
-    String houseNumber;
+    @Id
+    private Integer id;
+    private String city;
+    private String street;
+    private String houseNumber;
+
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getCity() {
         return city;
@@ -32,4 +48,7 @@ public class Address {
     public void setHouseNumber(String houseNumber) {
         this.houseNumber = houseNumber;
     }
+
+
+
 }

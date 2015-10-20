@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
 
 <head>
     <meta charset="utf-8">
@@ -109,6 +111,7 @@
                     </tr>
                 </tbody>
             </table>
+
 
         </main>
         <section class="right">
