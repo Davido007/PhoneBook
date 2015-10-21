@@ -15,243 +15,125 @@ import java.util.List;
 public class PhoneBookRepositoryImpl implements PhoneBookRepository {
 
     // JDBC driver name and database URL
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/phonebook_database";
 
     //  Database credentials
     static final String USER = "root";
     static final String PASS = "admin";
 
-    public List<Record> getRecordByFullName(String fullName) throws SQLException{
-//        Record record = new Record();
-//        record.setFirstName(fullName);
-//        record.setSurname("Adamowski");
-//        Address address = new Address();
-//        address.setCity("Lleida");
-//        address.setHouseNumber("22a");
-//        address.setStreet("el General");
-//        PhoneNumber phoneNumber = new PhoneNumber();
-//        phoneNumber.setPrefix("+48");
-//        phoneNumber.setNumber("123 123 123");
-//        record.setAddress(address);
-//        record.setPhoneNumber(phoneNumber);
-//        List<Record> records = new ArrayList<Record>();
-//        records.add(record);
-//        return records;
 
-        Connection conn = null;
-        Statement stmt = null;
+    public List<Record> getRecordByFullName(String fullName) throws SQLException {
+        Connection conn;
+        Statement stmt;
         List<Record> records = new ArrayList<Record>();
-
-        try {
-            //STEP 2: Register JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
-
-            //STEP 3: Open a connection
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-
-            //STEP 4: Execute a query
-            System.out.println("Creating statement...");
-            stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT a.firstname, a.surname, b.city, b.street, b.houseNumber, c.prefix, c.number\n" +
-                    "FROM person a\n" +
-                    "JOIN address b ON b.id = a.address_id_address\n" +
-                    "INNER JOIN number c ON c.id_phoneNumber = a.number_id_phoneNumber\n" +
-                    "WHERE a.surname = '" + fullName + "';";
-            ResultSet rs = stmt.executeQuery(sql);
-
-            //STEP 5: Extract data from result set
-            while (rs.next()) {
-                //Retrieve by column name
-                Record record = new Record();
-                Address address = new Address();
-                PhoneNumber phoneNumber = new PhoneNumber();
-
-                record.setFirstName(rs.getString("firstname"));
-                record.setSurname(rs.getString("surname"));
-                phoneNumber.setPrefix(rs.getString("prefix"));
-                phoneNumber.setNumber(rs.getString("number"));
-                address.setCity(rs.getString("city"));
-                address.setStreet(rs.getString("street"));
-                address.setHouseNumber(rs.getString("houseNumber"));
-
-                record.setAddress(address);
-                record.setPhoneNumber(phoneNumber);
-                records.add(record);
-
-            }
-            //STEP 6: Clean-up environment
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException se) {
-            //Handle errors for JDBC
-            se.printStackTrace();
-        } catch (Exception e) {
-            //Handle errors for Class.forName
-            e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (SQLException se2) {
-            }// nothing we can do
-            try {
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }//end finally try
-        }//end try
-        System.out.println("Goodbye!");
+        String sql ="SELECT a.firstname, a.surname, b.city, b.street, b.houseNumber, c.prefix, c.number\n" +
+                "FROM person a\n" +
+                "JOIN address b ON b.id_address = a.address_id_address\n" +
+                "INNER JOIN number c ON c.id_phoneNumber = a.number_id_phoneNumber\n" +
+                "WHERE a.surname = '" + fullName + "';";
+        conn = getDBConnection(DB_URL, USER, PASS);
+        stmt = conn.createStatement();
+        ResultSet rs = getResultSet(sql, stmt);
+        records = getRecords(rs, records);
+        closeObjects(conn, rs, stmt);
         return records;
-
     }
 
     public List<Record> getRecordByPrefix(String prefix) throws SQLException {
-
-        Connection conn = null;
-        Statement stmt = null;
+        Connection conn;
+        Statement stmt;
         List<Record> records = new ArrayList<Record>();
-
-        try {
-            //STEP 2: Register JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
-
-            //STEP 3: Open a connection
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-
-            //STEP 4: Execute a query
-            System.out.println("Creating statement...");
-            stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT a.firstname, a.surname, b.city, b.street, b.houseNumber, c.prefix, c.number\n" +
-                    "FROM person a\n" +
-                    "JOIN address b ON b.id = a.address_id_address\n" +
-                    "INNER JOIN number c ON c.id_phoneNumber = a.number_id_phoneNumber\n" +
-                    "WHERE c.prefix = '" + prefix + "';";
-            ResultSet rs = stmt.executeQuery(sql);
-
-            //STEP 5: Extract data from result set
-            while (rs.next()) {
-                //Retrieve by column name
-                Record record = new Record();
-                Address address = new Address();
-                PhoneNumber phoneNumber = new PhoneNumber();
-
-                record.setFirstName(rs.getString("firstname"));
-                record.setSurname(rs.getString("surname"));
-                phoneNumber.setPrefix(rs.getString("prefix"));
-                phoneNumber.setNumber(rs.getString("number"));
-                address.setCity(rs.getString("city"));
-                address.setStreet(rs.getString("street"));
-                address.setHouseNumber(rs.getString("houseNumber"));
-
-                record.setAddress(address);
-                record.setPhoneNumber(phoneNumber);
-                records.add(record);
-
-            }
-            //STEP 6: Clean-up environment
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException se) {
-            //Handle errors for JDBC
-            se.printStackTrace();
-        } catch (Exception e) {
-            //Handle errors for Class.forName
-            e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try {
-                if (stmt != null)
-                    stmt.close();
-            } catch (SQLException se2) {
-            }// nothing we can do
-            try {
-                if (conn != null)
-                    conn.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }//end finally try
-        }//end try
-        System.out.println("Goodbye!");
+        String sql ="SELECT a.firstname, a.surname, b.city, b.street, b.houseNumber, c.prefix, c.number\n" +
+                "FROM person a\n" +
+                "JOIN address b ON b.id_address = a.address_id_address\n" +
+                "INNER JOIN number c ON c.id_phoneNumber = a.number_id_phoneNumber\n" +
+                "WHERE c.prefix = '" + prefix + "';";
+        conn = getDBConnection(DB_URL, USER, PASS);
+        stmt = conn.createStatement();
+        ResultSet rs = getResultSet(sql, stmt);
+        records = getRecords(rs, records);
+        closeObjects(conn, rs, stmt);
         return records;
     }
 
     public List<Record> getAllRecords() throws SQLException {
-        Connection conn = null;
-        Statement stmt = null;
+        Connection conn;
+        Statement stmt;
         List<Record> records = new ArrayList<Record>();
+        String sql = "SELECT a.firstname, a.surname, b.city, b.street, b.houseNumber, c.prefix, c.number\n" +
+                "FROM person a\n" +
+                "JOIN address b ON b.id_address = a.address_id_address\n" +
+                "INNER JOIN number c ON c.id_phoneNumber = a.number_id_phoneNumber;";
+        conn = getDBConnection(DB_URL, USER, PASS);
+        stmt = conn.createStatement();
+        ResultSet rs = getResultSet(sql, stmt);
+        records = getRecords(rs, records);
+        closeObjects(conn, rs, stmt);
+        return records;
+    }
 
+    public Connection getDBConnection(String dbUrl, String user, String password) {
         try {
-            //STEP 2: Register JDBC driver
             Class.forName("com.mysql.jdbc.Driver");
+            return DriverManager.getConnection(dbUrl, user, password);
+        } catch (SQLException e) {
+            return null;
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
+    }
 
-            //STEP 3: Open a connection
-            System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+    public ResultSet getResultSet(String sql, Statement stmt) {
+        try {
+            return stmt.executeQuery(sql);
+        } catch (SQLException e) {
+            return null;
+        }
+    }
 
-            //STEP 4: Execute a query
-            System.out.println("Creating statement...");
-            stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT a.firstname, a.surname, b.city, b.street, b.houseNumber, c.prefix, c.number\n" +
-                    "FROM person a\n" +
-                    "JOIN address b ON b.id = a.address_id_address\n" +
-                    "INNER JOIN number c ON c.id_phoneNumber = a.number_id_phoneNumber;";
-            ResultSet rs = stmt.executeQuery(sql);
+    public List<Record> getRecords(ResultSet rs, List<Record> records) throws SQLException {
+        while (rs.next()) {
+            Record record = new Record();
+            Address address = new Address();
+            PhoneNumber phoneNumber = new PhoneNumber();
 
-            //STEP 5: Extract data from result set
-            while (rs.next()) {
-                //Retrieve by column name
-                Record record = new Record();
-                Address address = new Address();
-                PhoneNumber phoneNumber = new PhoneNumber();
 
-                record.setFirstName(rs.getString("firstname"));
-                record.setSurname(rs.getString("surname"));
-                phoneNumber.setPrefix(rs.getString("prefix"));
-                phoneNumber.setNumber(rs.getString("number"));
-                address.setCity(rs.getString("city"));
-                address.setStreet(rs.getString("street"));
-                address.setHouseNumber(rs.getString("houseNumber"));
+            record.setFirstName(rs.getString("firstname"));
+            record.setSurname(rs.getString("surname"));
+            phoneNumber.setPrefix(rs.getString("prefix"));
+            phoneNumber.setNumber(rs.getString("number"));
+            address.setCity(rs.getString("city"));
+            address.setStreet(rs.getString("street"));
+            address.setHouseNumber(rs.getString("houseNumber"));
 
-                record.setAddress(address);
-                record.setPhoneNumber(phoneNumber);
-                records.add(record);
+            record.setAddress(address);
+            record.setPhoneNumber(phoneNumber);
+            records.add(record);
+        }
+        return records;
+    }
 
-            }
-            //STEP 6: Clean-up environment
+    public void closeObjects(Connection conn, ResultSet rs, Statement stmt) {
+        try {
+            conn.close();
             rs.close();
             stmt.close();
-            conn.close();
-        } catch (SQLException se) {
-            //Handle errors for JDBC
-            se.printStackTrace();
-        } catch (Exception e) {
-            //Handle errors for Class.forName
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            //finally block used to close resources
             try {
                 if (stmt != null)
                     stmt.close();
-            } catch (SQLException se2) {
-            }// nothing we can do
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
             try {
                 if (conn != null)
                     conn.close();
             } catch (SQLException se) {
                 se.printStackTrace();
-            }//end finally try
-        }//end try
-        System.out.println("Goodbye!");
-        return records;
+            }
+
+        }
     }
 }
