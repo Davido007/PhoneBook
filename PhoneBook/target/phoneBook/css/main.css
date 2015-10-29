@@ -5,6 +5,8 @@
     /*URL to font*/
 }
 
+
+
 html,
 body {
     height: 100%;
@@ -12,7 +14,6 @@ body {
     margin: 0px;
     font-family: Arial;
 }
-
 header {
     font-family: PoetsenOne;
     width: 100%;
@@ -38,16 +39,35 @@ header {
     /* IE6-9 */
 }
 
-header td.active a {
-    color: black;
-}
-
-header table {
-    margin-left: 22.5%;
-    width: 55%;
+.radioDiv {
+    margin-left: 45px;
     margin-top: 36px;
+    float: left;
+    clear: none;
+}
+label {
+    float: left;
+    clear: none;
+    display: block;
+    padding: 2px 1em 0 0;
+}
+label > input[type=radio]:checked + span {
+    color: #004996;
+
 }
 
+
+input[type=radio],
+input.radio {
+    visibility:hidden;
+    float: left;
+    clear: none;
+    margin: 2px 0 0 2px;
+}
+.radioButton {
+    margin-left: 0;
+    margin-right: 120px;
+}
 header span {
     font-family: PoetsenOne;
     color: white;
@@ -56,23 +76,6 @@ header span {
     font-weight: bold;
     padding: 14px 10px;
 }
-
-header a {
-    color: #CCCCCE;
-    font-size: 30px;
-    font-weight: bold;
-    margin-right: 155px;
-    text-transform: uppercase;
-    text-decoration: none;
-}
-
-header a:link,
-header a:visited,
-header a:hover,
-header a:active {
-    text-decoration: none;
-}
-
 .footer {
     width: 100%;
     height: 125px;
@@ -86,73 +89,57 @@ header a:active {
     bottom: 0;
     left: 0;
 }
-
 .footer-mid-left {
     margin-left: 22.5%;
     width: 19%;
     float: left;
 }
-
 .footer-mid-mid {
     width: 22%;
     float: left;
 }
-
 .footer-mid-right {
     width: 13.3%;
     float: left
 }
-
 .ubber-footer {
     padding-top: 25px;
 }
-
 .left {
     margin-top: 37px;
     float: left;
     width: 22.5%;
 }
 
-main {
-    float: left;
-    width: 55%;
-}
-
 .right {
     float: right;
     width: 22.5%;
 }
-
 section.left {
     margin-top: 100px;
     min-height: 100%;
 }
-
 section.right {
     margin-top: 100px;
     min-height: 100%;
 }
-
 main {
     margin-top: 100px;
     min-height: 100%;
-    /*background: linear-gradient(to bottom,#f6f6f6 60%, #3399FF );*/
+    float: left;
+    width: 55%;
 }
-
 .mid {
     min-height: 100%;
     margin-bottom: -125px;
 }
-
 .img {
     width: 40%;
 }
-
 .img-follow {
     margin-top: 4%;
     width: 12%;
 }
-
 .submit-button {
     /*background-color: #3399FF;*/
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,207cca+0,2989d8+37,7db9e8+100 */
@@ -177,20 +164,21 @@ main {
     font-weight: bold;
     width: 176px;
     height: 60px;
-    margin-left: 5.5%;
     margin-right: 5%;
 }
-
 .input-search {
     margin-top: 0px;
-    margin-left: 4%;
-    margin-right: 10%;
+    margin-left: 11%;
+    margin-right: 5%;
     width: 51%;
     font-size: 25px !important;
     font-weight: bold;
     height: 45px !important;
 }
-
 .form-search {
     margin-top: 10%;
+}
+.btn-primary[disabled] {
+    color: #908B8B;
+    background-color: #E6E6E5; 
 }
